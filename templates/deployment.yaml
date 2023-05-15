@@ -56,6 +56,12 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+        {{- if .Values.preStop}}
+        lifecycle:
+        preStop:
+          exec:
+            command: ["sleep", "15"]
+        {{- end}}
         {{- if or .Values.env.config .Values.env.secrets}}
         envFrom:
         {{- if .Values.env.config}}
